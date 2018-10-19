@@ -3,10 +3,21 @@ from collections import Counter
 import csv
 
 
+# Version 1: Read the whole file at once.
+# def get_words(file):
+#     with open(file=file, mode='r', encoding='utf-8') as f:
+#         return (word for word in f.read().lower().split(" ") if
+#                 word not in stop_words)  # The words are separated by white space.
+
+# Version 2: Read the file line by line.
 def get_words(file):
     with open(file=file, mode='r', encoding='utf-8') as f:
-        return (word for word in f.read().lower().split(" ") if
-                word not in stop_words)  # The words are separated by white space.
+        line = f.readline()
+        while line != '':
+            words = (word for word in line.split() if word not in stop_words)
+            for word in words:
+                yield word.lower()
+            line = f.readline()
 
 
 def get_stop_words():
