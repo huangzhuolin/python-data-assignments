@@ -1,3 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 
+.DS_Store
+assignment0/.DS_Store
+assignment0/.ipynb_checkpoints/
