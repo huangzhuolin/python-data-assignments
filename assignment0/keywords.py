@@ -2,9 +2,6 @@ from os import listdir, getcwd
 from collections import Counter
 import csv
 
-# TODO: How to find common stop words?
-stop_words = {'the', 'and', 'of', 'a', 'in', 'to', 'that', 'is', 'as', 'on', 'with', }
-
 
 def get_words(file):
     with open(file=file, mode='r', encoding='utf-8') as f:
@@ -12,7 +9,15 @@ def get_words(file):
                 word not in stop_words)  # The words are separated by white space.
 
 
+def get_stop_words():
+    # The stop words are provided on https://www.ranks.nl/stopwords
+    with open(file='stop-word.txt', mode='r', encoding='utf-8') as f:
+        return set(f.read().lower().split('\n'))
+
+
 if __name__ == '__main__':
+    stop_words = get_stop_words()
+
     # The article files are supposed to have a `.txt` suffix.
     articles = [file for file in listdir(getcwd()) if file.endswith(".txt")]
     cnt = Counter()
