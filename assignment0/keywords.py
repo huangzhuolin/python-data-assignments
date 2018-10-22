@@ -1,6 +1,8 @@
 from os import listdir, getcwd
 from collections import Counter
+from nltk.corpus import stopwords
 import csv
+import re
 
 
 # Version 1: Read the whole file at once.
@@ -14,16 +16,18 @@ def get_words(file):
     with open(file=file, mode='r', encoding='utf-8') as f:
         line = f.readline()
         while line != '':
-            words = (word for word in line.split() if word not in stop_words)
+            words = (word for word in re.findall('\w+', line) if word not in stop_words)
             for word in words:
                 yield word.lower()
             line = f.readline()
 
 
 def get_stop_words():
-    # The stop words are provided on https://www.ranks.nl/stopwords
-    with open(file='stop-word.txt', mode='r', encoding='utf-8') as f:
-        return set(f.read().lower().split('\n'))
+    # # The stop words are provided on https://www.ranks.nl/stopwords
+    # with open(file='stop-word.txt', mode='r', encoding='utf-8') as f:
+    #     return set(f.read().lower().split())
+
+    return set(stopwords.words('english'))
 
 
 if __name__ == '__main__':
