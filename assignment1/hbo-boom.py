@@ -34,7 +34,7 @@ def parse_movie_item(movie_html):
     return {
         'title': title,
         'category': category,
-        'restriction': restriction,
+        'content rate': restriction,
     }
 
 
