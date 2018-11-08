@@ -23,6 +23,7 @@ def output_to_csv(data):
 
 
 def parse_page(page):
+    # TODO: Add try/catch control and use `yield`.
     elements = page.find_elements_by_class_name('con_list_item')
     return [parse_element(e) for e in elements]
 
@@ -52,6 +53,11 @@ def waiting():
 
 
 def nav_to_next(element):
+    """
+    Navigate to next page
+    :param element: the browser object
+    :return:
+    """
     element.execute_script("window.scrollTo(0,3000);")
     element.find_element_by_class_name('pager_next').click()
 
@@ -64,7 +70,7 @@ if __name__ == '__main__':
     for _ in range(1, NUM_OF_PAGES):
         nav_to_next(browser)
 
-        waiting()
+        waiting()  # Wait until the page is fully loaded.
         articles += parse_page(browser)
 
     output_to_csv(articles)
